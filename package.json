@@ -1,0 +1,21 @@
+{
+  "name": "weapp-node-server-demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "pm2 start process.json"
+  },
+  "keywords": [],
+  "author": "CFETeam",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "cheerio": "^0.22.0",
+    "express": "^4.14.0",
+    "lodash": "^4.16.1",
+    "morgan": "^1.7.0",
+    "qcloud-weapp-server-sdk": "latest",
+    "superagent": "^3.5.2"
+  }
+}
