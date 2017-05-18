@@ -61,7 +61,7 @@ app.post('/api/getimg', function(req, res) {
 app
   .route('/logs')
   .get(function(req, res) {
-    if (req.body.token && req.body.token === MY_TOKEN) {
+    if (req.query.token && req.query.token === MY_TOKEN) {
       var c = fs.readFileSync('./log.log')
       res.set('Content-Type', 'text/plain')
       res.send(c)
