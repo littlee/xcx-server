@@ -4,6 +4,7 @@ require('./globals');
 require('./setup-qcloud-sdk');
 
 const http = require('http');
+const fs = require('fs');
 const express = require('express');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
@@ -13,6 +14,8 @@ const superagent = require('superagent')
 const cheerio = require('cheerio')
 
 const app = express();
+
+const MY_TOKEN = 'djb'
 
 app.set('query parser', 'simple');
 app.set('case sensitive routing', true);
@@ -54,6 +57,26 @@ app.post('/api/getimg', function(req, res) {
       })
     })
 })
+
+app
+  .route('/logs')
+  .get(function(req, res) {
+    if (req.body.token && req.body.token === MY_TOKEN) {
+      var c = fs.readFileSync('./log.log')
+      res.set('Content-Type', 'text/plain')
+      res.send(c)
+      return
+    }
+    res.send('no logs')
+  })
+  .post(function(req, res) {
+    if (req.body.log && req.body.log.slice(0, 3) === MY_TOKEN) {
+      fs.appendFileSync('./log.log', req.body.log.slice(3) + '\n')
+      res.send('ok')
+      return
+    }
+    res.send('hehe')
+  })
 
 // 打印异常日志
 process.on('uncaughtException', error => {
