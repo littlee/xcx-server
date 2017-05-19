@@ -78,6 +78,23 @@ app
     res.send('hehe')
   })
 
+app
+  .route('/info')
+  .get(function(req, res) {
+    res.send(require('./ddb/db.json'))
+  })
+  .post(function(req, res) {
+
+    if (req.body.token && req.body.token === MY_TOKEN) {
+      if (req.body.info) {
+        fs.writeFileSync('./ddb/db.json', JSON.stringify(req.body.info))
+      }
+      res.send('info updated')
+      return
+    }
+    res.send('haha')
+  })
+
 // 打印异常日志
 process.on('uncaughtException', error => {
     console.log(error);
